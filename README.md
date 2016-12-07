@@ -45,11 +45,11 @@
 console.log(a||''); console.log(b||'');
 ~~~
 
-然而下面的，哈哈，它就不是一个运算了，而是输出（渲染）
+然而下面的，哈哈，它就不是一个运算了，
 ~~~ xml
     <view class="price">{{info.name}} + {{info.family.addr}}</view>
 ~~~
-
+而是输出（渲染）
 ~~~ js
     console.log(a||''); console.log('+'); console.log(b||'');
 ~~~

@@ -1,4 +1,60 @@
 # wx-mp-doc
+## 数据绑定
+
+### 字符串运算
+~~~ xml
+  <view class="price">{{info.name + info.family.addr}}</view>
+~~~
+
+* 如果info是空，不会报错，生成的结果和JS相同。undefined + undefined = NaN
+* 如果family是空，不会报错，生成的结果和JS相同。string + undefined = stringundefined
+* 如果属性都有效，正常的加法运算
+
+之所以这样的原因是因为微信的语法解析分三部分，优先级高的点引用在先，加法在后。是这样的
+
+~~~
+    var scr = "info.name + info.family.addr".split(' ')
+    var oper = scr[1];
+
+    "info.name".split('.').find in dataMap
+    "info.family.addr".split('.') find in dataMap
+    if(null) {
+        return undefined
+    }
+    //注意：想想oper是undefined会怎样？
+    eval((a||'') oper (b||''))
+
+~~~
+
+目前支持的operation有所有算术运算、位运算和逻辑运算，三目运算。所以就不难理解下面的写法将会引发致命错误
+
+
+~~~ xml
+    <view class="price">{{info.name info.family.addr}}</view>
+~~~
+
+因为找不到operation，View Thread抛出错误。渲染失败，页面呲掉。
+
+~~~ xml
+    <view class="price">{{info.name}}{{info.family.addr}}</view>
+~~~
+
+这是最安全的写法，不过很难看懂。它相当于输出（渲染）
+
+~~~ js
+console.log(a||''); console.log(b||'');
+~~~
+
+然而下面的，哈哈，它就不是一个运算了，而是输出（渲染）
+~~~ xml
+    <view class="price">{{info.name}} + {{info.family.addr}}</view>
+~~~
+
+~~~ js
+    console.log(a||''); console.log('+'); console.log(b||'');
+~~~
+
+
 ## 条件渲染
 ### wx:if
 

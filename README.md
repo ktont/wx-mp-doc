@@ -22,7 +22,7 @@
         return undefined
     }
     //注意：想想oper是undefined会怎样？
-    eval((a||'') oper (b||''))
+    eval(a oper b) || ''
 
 ~~~
 

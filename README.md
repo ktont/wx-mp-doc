@@ -70,9 +70,15 @@ __Tip:__ 此时的行为和js相同。
   <view wx:if="{{obj.val.name}}">{{name}}</view>
 ~~~
 
-* 当obj不存在的时候，即：obj===undefined。不管引用了多少层。wx:if什么都不做，并不出错。
+* 当obj不存在的时候，即：`obj = undefined`。不管引用了多少层。wx:if什么都不做，并不出错。
 
 __Tip:__ 此时的行为和js不同，不过极可能正是你想要的效果。
+
+* 但是，尤其要注意。当`obj = null`的时候，上面的代码会抛出异常。
+原因是，微信小程序渲染线程中，把null当成object。
+当尝试访问null的某个属性（这里为val）时，发生了异常。
+同样，在wx:for中也会这样。微信小程序渲染线程的本来目的是要容错，
+那么起码在版本v0.11.112301之前，可以说这里的情况是其自身的一个bug。
 
 ## 列表渲染
 ### wx:for
@@ -89,6 +95,18 @@ __Tip:__ 此时的行为和js相同。
 ~~~ xml
   <block wx:for="{{obj.data.name}}"><view>{{item}}</view></block>
 ~~~
-当obj不存在的时候，即：obj===undefined。不管引用了多少层。wx:if什么都不做，并不出错。
+当obj不存在的时候，即：`obj=undefined`。不管引用了多少层。wx:if什么都不做，并不出错。
 
 __Tip:__ 此时的行为和js不同，不过极可能正是你想要的效果。
+
+* 尤其要注意。当`obj = null`时，页面会异常。
+
+### <block wx:for> 和 <view wx:for>的区别
+
+|<block wx:for>|<view wx:for>|
+|---|----
+|aaa|bbb
+|aaa|ccc
+
+
+

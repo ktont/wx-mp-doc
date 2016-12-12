@@ -105,9 +105,8 @@ __Tip:__ 此时的行为和js不同，不过极可能正是你想要的效果。
 
 |#|\<block wx:for\>|\<view wx:for\>|
 |---|---|----
-||`aaa\nddd\nd
-    dccceef\n`|bbb
-||aaa|ccc
+|1|`[![](/img/1.png "我的知乎，欢迎关注")][zhihu]`|bbb
+|2|aaa|ccc
 
 
 

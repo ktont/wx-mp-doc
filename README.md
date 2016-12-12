@@ -103,7 +103,7 @@ __Tip:__ 此时的行为和js不同，不过极可能正是你想要的效果。
 
 ### <block wx:for> 和 <view wx:for>的区别
 
-|<block wx:for>|<view wx:for>|
+|\<block wx:for\>|\<view wx:for\>|
 |---|----
 |aaa|bbb
 |aaa|ccc
